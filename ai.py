@@ -1,5 +1,6 @@
 import math
 import random
+
 BLACK = 1
 WHITE = 2
 
