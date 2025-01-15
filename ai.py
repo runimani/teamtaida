@@ -96,7 +96,7 @@ class TeamtaidaAI(object):
         ]
 
     def face(self):
-        return "🐼"
+        return "🐰"
 
     def evaluate_phase(self, board):
         """
