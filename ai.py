@@ -65,7 +65,7 @@ def random_place(board, stone):
         if can_place_x_y(board, stone, x, y):
             return x, y
 
-class SmartPandaAI(object):
+class TeamtaidaAI(object):
     def __init__(self):
         # 序盤の評価値表
         self.early_game_table = [
