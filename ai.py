@@ -57,9 +57,9 @@ class TeamtaidaAI(object):
     def face(self):
         return "🐰"
 
-    def place(self, board, stone):
-        # 評価値表（6x6の場合）
-        evaluation_table = [
+   def place(self, board, stone):
+        # ゲーム進行状況に応じた評価値表の定義
+        early_table = [
             [120, -20, 10, 10, -20, 120],
             [-20, -40, -5, -5, -40, -20],
             [10,  -5,   5,  5,  -5,  10],
@@ -68,6 +68,34 @@ class TeamtaidaAI(object):
             [120, -20, 10, 10, -20, 120],
         ]
 
+        mid_table = [
+            [100, -50,  20,  20, -50, 100],
+            [-50, -80, -10, -10, -80, -50],
+            [20,  -10,  15,  15, -10,  20],
+            [20,  -10,  15,  15, -10,  20],
+            [-50, -80, -10, -10, -80, -50],
+            [100, -50,  20,  20, -50, 100],
+        ]
+
+        late_table = [
+            [500, -200, 50,  50, -200, 500],
+            [-200, -300, -50, -50, -300, -200],
+            [50,   -50,   0,   0,  -50,   50],
+            [50,   -50,   0,   0,  -50,   50],
+            [-200, -300, -50, -50, -300, -200],
+            [500, -200, 50,  50, -200, 500],
+        ]
+
+        # ゲーム進行状況を判断（石の数をカウント）
+        total_stones = sum(row.count(BLACK) + row.count(WHITE) for row in board)
+        if total_stones < 20:  # 序盤
+            evaluation_table = early_table
+        elif total_stones < 40:  # 中盤
+            evaluation_table = mid_table
+        else:  # 終盤
+            evaluation_table = late_table
+
+        # 最適な手を探索
         best_score = float('-inf')
         best_move = None
 
@@ -85,3 +113,4 @@ class TeamtaidaAI(object):
             return best_move
         else:
             raise ValueError("No valid moves available")
+
