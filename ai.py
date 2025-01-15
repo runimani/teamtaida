@@ -1,5 +1,5 @@
 import math
-
+import random
 BLACK = 1
 WHITE = 2
 
@@ -52,6 +52,17 @@ def can_place(board, stone):
                 return True
     return False
 
+def random_place(board, stone):
+    """
+    石をランダムに置く関数。
+    board: 2次元配列のオセロボード
+    stone: 現在のプレイヤーの石 (1: 黒, 2: 白)
+    """
+    while True:
+        x = random.randint(0, len(board[0]) - 1)
+        y = random.randint(0, len(board) - 1)
+        if can_place_x_y(board, stone, x, y):
+            return x, y
 
 class TeamtaidaAI(object):
     def face(self):
